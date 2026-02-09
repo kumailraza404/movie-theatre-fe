@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
-import { useMyReservations, useConfirmReservation, useCancelReservation, Reservation } from '../hooks/useReservations';
 import LoadingAnimation from '../components/LoadingAnimation';
+import { useAuth } from '../hooks/useAuth';
+import { Reservation, useCancelReservation, useConfirmReservation, useMyReservations } from '../hooks/useReservations';
 import './MyMovies.css';
 
 function MyMovies() {
@@ -71,11 +71,7 @@ function MyMovies() {
       const expires = new Date(r.expiresAt).getTime();
       return expires > now; // Only include if not expired
     }
-    // If no expiresAt, check remainingTime
-    if (r.remainingTime !== undefined) {
-      return r.remainingTime > 0;
-    }
-    // If neither exists, include it (shouldn't happen, but be safe)
+    // If no expiresAt, include it (shouldn't happen for hold reservations, but be safe)
     return true;
   });
   const confirmedReservations = reservations.filter((r) => r.status === 'confirmed');

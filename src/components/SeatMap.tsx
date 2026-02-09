@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
+import { useConfirmReservation, useHoldSeats, useSeatAvailability } from '../hooks/useReservations';
 import { Seat, SeatAvailability } from '../services/api';
-import { useSeatAvailability, useHoldSeats, useConfirmReservation } from '../hooks/useReservations';
 import { wsService } from '../services/websocket';
 import './SeatMap.css';
 
@@ -107,7 +107,7 @@ function SeatMap({ showtimeId, onClose }: SeatMapProps) {
     return <div className="seat-map-error">Failed to load seat map</div>;
   }
 
-  const { showtime, availability: seats } = availability;
+  const {  availability: seats } = availability;
 
   return (
     <div className="seat-map">

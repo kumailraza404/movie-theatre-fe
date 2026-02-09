@@ -1,7 +1,7 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { reservationApi, Reservation, SeatAvailability, Seat } from '../services/api';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { Reservation, reservationApi, Seat, SeatAvailability } from '../services/api';
 
-export type { Reservation, SeatAvailability, Seat };
+export type { Reservation, Seat, SeatAvailability };
 
 export const useMyReservations = () => {
   return useQuery({
@@ -38,6 +38,7 @@ export const useHoldSeats = () => {
       queryClient.invalidateQueries({ queryKey: ['reservations', 'seat-availability', variables.showtimeId] });
       // Invalidate my reservations to show the new hold
       queryClient.invalidateQueries({ queryKey: ['reservations', 'my-reservations'] });
+      console.log('Hold seats success', data);
     },
   });
 };
